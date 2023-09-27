@@ -1,0 +1,42 @@
+// .custom-input {
+//   border: 1px solid black;
+//   border-radius: 5px;
+// }
+
+// .custom-select {
+//     position: relative;
+// }
+
+// .custom-select__options {
+//     position: absolute;
+//     top: 1rem;
+//     z-index: 5;
+// }
+.form-label:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.select-label {
+  font-size: 20px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.custom-input {
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 100%;
+  height: 60px;
+  padding: 0 1rem;
+}
+
+div.custom-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-question-btn {
+  color: #a80000;
+}

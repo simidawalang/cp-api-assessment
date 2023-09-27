@@ -1,12 +1,31 @@
 .card {
   max-width: 595px;
   border-radius: 20px;
+  background: #fff;
+  box-shadow: 3px 3px 14px 0px rgba(190, 190, 190, 0.3);
 }
 
 .card-header {
-    font-size: 25px;
-    background: #D0F7FA;
-    font-weight: 600;
-    border-radius: 20px 20px 0px 0px;
-    padding: 1rem;
+  font-size: 25px;
+  background: #d0f7fa;
+  font-weight: 600;
+  border-radius: 20px 20px 0px 0px;
+  padding: 1rem;
+}
+
+.card-body {
+  padding: 0 1rem 1rem;
+}
+
+.add-question-btn, .delete-question-btn {
+  border: 0;
+  background: none;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
 }
