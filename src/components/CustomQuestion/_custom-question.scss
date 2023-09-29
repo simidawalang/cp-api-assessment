@@ -1,18 +1,8 @@
-// .custom-input {
-//   border: 1px solid black;
-//   border-radius: 5px;
-// }
+.form-group {
+  position: relative;
+}
 
-// .custom-select {
-//     position: relative;
-// }
-
-// .custom-select__options {
-//     position: absolute;
-//     top: 1rem;
-//     z-index: 5;
-// }
-.form-label:not(:last-child) {
+.form-group:not(:last-child) {
   margin-bottom: 1rem;
 }
 
@@ -23,20 +13,31 @@
   margin-bottom: 0.75rem;
 }
 
-.custom-input {
+.custom-input,
+.custom-select {
   border: 1px solid black;
   border-radius: 5px;
   width: 100%;
   height: 60px;
+}
+
+.custom-input {
   padding: 0 1rem;
 }
 
-div.custom-input {
+.question-btns {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
 .delete-question-btn {
   color: #a80000;
+}
+
+.save-btn {
+  border-radius: 5px;
+  background: #087b2f;
+  color: #fff;
+  border: none;
+  padding: 0 0.5rem;
 }
