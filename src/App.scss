@@ -1,6 +1,10 @@
 @import "./components/Card/card";
 @import "./components/CustomQuestion/custom-question";
 @import "./components/CustomSelect/custom-select";
+@import "./components/Layout/Sidebar/sidebar";
+@import "./components/Layout/layout";
+@import "./components/Layout/Header/header";
+
 * {
   margin: 0;
   padding: 0;

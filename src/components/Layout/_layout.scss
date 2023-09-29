@@ -1,0 +1,11 @@
+.layout-content {
+  display: flex;
+}
+
+.main-body {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.main-content {
+  padding: 1.5rem;
+}

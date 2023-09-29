@@ -8,9 +8,18 @@ interface ICustomQuestion {
   formData: any;
   setFormData: Dispatch<any>;
   setAddQuestion: Dispatch<any>;
+  questionList: any[];
+  setQuestionList: Dispatch<any>;
 }
 
-const CustomQuestion = ({ key, formData, setFormData }: ICustomQuestion) => {
+const CustomQuestion = ({
+  key,
+  formData,
+  setFormData,
+  setAddQuestion,
+  questionList,
+  setQuestionList,
+}: ICustomQuestion) => {
   const selectOptions = [
     { id: 1, name: "Paragraph" },
     { id: 2, name: "Short answer" },
@@ -46,6 +55,7 @@ const CustomQuestion = ({ key, formData, setFormData }: ICustomQuestion) => {
 
   return (
     <div className="custom-question">
+      {/* Question types, I made use of divs instead of a select component so the UI will be uniform across all browsers  */}
       <div className="form-group">
         <span className="select-label">Type</span>
         <div className="custom-select">
@@ -81,44 +91,60 @@ const CustomQuestion = ({ key, formData, setFormData }: ICustomQuestion) => {
           onChange={handleQuestionChange}
         />
       </div>
-      {questionType === "Multiple choice" && (
-        <div className="form-group">
-          <label className="select-label">Choices</label>
-          {customChoices.map(({ id, choice }: any) => (
-            <input
-              key={id}
-              className="custom-input"
-              value={choice}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+      {/* For multiple choice questions or dropdowna*/}
+      {questionType === "Multiple choice" ||
+        (questionType === "Dropdown" && (
+          <div className="form-group">
+            <label className="select-label">Choices</label>
+            {customChoices.map(({ id, choice }: any) => (
+              <input
+                key={id}
+                className="custom-input"
+                value={choice}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setCustomChoices((prev: any) => [
+                    ...prev.filter((t: any) => t.id !== id),
+                    { id, choice: e.target.value },
+                  ])
+                }
+              />
+            ))}
+
+            <button
+              onClick={() =>
                 setCustomChoices((prev: any) => [
-                  ...prev.filter((t: any) => t.id !== id),
-                  { id, choice: e.target.value },
+                  ...prev,
+                  {
+                    id: uuidv4(),
+                    choice: "",
+                  },
                 ])
               }
-            />
-          ))}
-
-          <button
-            onClick={() =>
-              setCustomChoices((prev: any) => [
-                ...prev,
-                {
-                  id: uuidv4(),
-                  choice: "",
-                },
-              ])
-            }
-          >
-            +
-          </button>
-        </div>
-      )}
+            >
+              +
+            </button>
+          </div>
+        ))}
       <div className="question-btns">
-        <button className="delete-question-btn">
+        <button
+          className="delete-question-btn"
+          onClick={() => setAddQuestion(false)}
+        >
           <ImCross size={24} />
           Delete question
         </button>
-        <button className="save-btn">Save</button>
+        <button
+          className="save-btn"
+          onClick={() => {
+            setQuestionList((prev: any) => [
+              ...prev,
+              { id: uuidv4(), type: questionType, question },
+            ]);
+            setAddQuestion(false);
+          }}
+        >
+          Save
+        </button>
       </div>
     </div>
   );
