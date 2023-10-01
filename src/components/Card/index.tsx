@@ -1,7 +1,8 @@
 import { FaPlus } from "react-icons/fa";
 import CustomQuestion from "../CustomQuestion";
-import { Dispatch, useState } from "react";
+import { Dispatch, useRef, useState } from "react";
 import { LiaPenSolid } from "react-icons/lia";
+import { FiUpload } from "react-icons/fi";
 import Checkbox from "../Checkbox";
 import ToggleSwitch from "../ToggleSwitch";
 
@@ -10,13 +11,20 @@ interface ICard {
   _key?: string;
   formData: any;
   setFormData: Dispatch<any>;
+  setCoverImage?: any;
 }
 
-const Card = ({ title, _key, formData, setFormData }: ICard) => {
+const Card = ({ title, _key, formData, setFormData, setCoverImage }: ICard) => {
   const [addQuestion, setAddQuestion] = useState(false);
   const [questionList, setQuestionList] = useState<any>([]);
   const [selectedQuestion, setSelectedQuestion] = useState<any>({});
   const [editQuestion, setEditQuestion] = useState(false);
+
+  const handleImageChange = (e: any) => {
+    setCoverImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const inputRef = useRef<any>();
 
   const toggleAddQuestion = () => {
     setAddQuestion((prev) => !prev);
@@ -27,7 +35,26 @@ const Card = ({ title, _key, formData, setFormData }: ICard) => {
       <div className="card-header">{title}</div>
       <div className="card-body">
         <div className="default-question">
+          <input
+            type="file"
+            hidden
+            ref={inputRef}
+            accept=".png,.jpg,.jpeg"
+            onChange={handleImageChange}
+          />
           <>
+            {_key === "coverImage" && (
+              <div
+                className="upload-container"
+                onClick={() => inputRef.current.click()}
+              >
+                <span className="upload-icon">
+                  <FiUpload size={33} />
+                </span>
+                <span>Upload cover image</span>
+                <span className="gray-text">16:9 ratio is recommended. Max image size 1mb</span>
+              </div>
+            )}
             {_key === "personalInformation" && (
               <>
                 <div className="default-question__item">
@@ -143,21 +170,25 @@ const Card = ({ title, _key, formData, setFormData }: ICard) => {
             ))}
           </div>
         )}
-
-        {addQuestion && title !== "Upload cover image" ? (
+        {_key !== "coverImage" && (
           <>
-            <CustomQuestion
-              setQuestionList={setQuestionList}
-              formData={formData}
-              setFormData={setFormData}
-              setAddQuestion={setAddQuestion}
-            />
+            {" "}
+            {addQuestion ? (
+              <>
+                <CustomQuestion
+                  setQuestionList={setQuestionList}
+                  formData={formData}
+                  setFormData={setFormData}
+                  setAddQuestion={setAddQuestion}
+                />
+              </>
+            ) : (
+              <button className="add-question-btn" onClick={toggleAddQuestion}>
+                <FaPlus size={24} />
+                Add a question
+              </button>
+            )}
           </>
-        ) : (
-          <button className="add-question-btn" onClick={toggleAddQuestion}>
-            <FaPlus size={24} />
-            Add a question
-          </button>
         )}
       </div>
     </div>
