@@ -1,12 +1,19 @@
+.toggle-switch__container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .toggle-switch {
-  width: 80px;
+  width: 70px;
   height: 30px;
   position: relative;
   border: 1px solid #d4d9e4;
   border-radius: 1rem;
   padding: 0 2px;
-
-  & .on {
+  color: #666;
+  transition: 0.3s;
+  &.on {
     background: #087b2f;
   }
   & .toggle-indicator {
@@ -14,8 +21,15 @@
     height: 24px;
     position: absolute;
     border: 1px solid #d4d9e4;
+    background: #fff;
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
+    transition: 0.3s;
+    left: 2px;
+
+    &.on {
+      left: 60%;
+    }
   }
 }

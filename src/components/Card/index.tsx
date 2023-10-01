@@ -34,29 +34,52 @@ const Card = ({ title, _key, formData, setFormData }: ICard) => {
                   <span className="label">First Name</span>
                 </div>
                 <div className="default-question__item">
+                  <span className="label">Last Name</span>
+                </div>
+                <div className="default-question__item">
                   <span className="label">Email</span>
                 </div>
                 <div className="default-question__item">
                   <span className="label">Phone Number</span>
+                  <div className="toggle-options">
+                    <Checkbox label="Internal" />
+                    <ToggleSwitch />
+                  </div>
                 </div>
                 <div className="default-question__item">
                   <span className="label">Nationality</span>
+                  <div className="toggle-options">
+                    <Checkbox label="Internal" />
+                    <ToggleSwitch />
+                  </div>
                 </div>
                 <div className="default-question__item">
                   <span className="label">Current Residence</span>
-                  <div>
+                  <div className="toggle-options">
                     <Checkbox label="Internal" />
                     <ToggleSwitch />
                   </div>
                 </div>
                 <div className="default-question__item">
                   <span className="label">ID Number</span>
+                  <div className="toggle-options">
+                    <Checkbox label="Internal" />
+                    <ToggleSwitch />
+                  </div>
                 </div>
                 <div className="default-question__item">
                   <span className="label">Date of Birth</span>
+                  <div className="toggle-options">
+                    <Checkbox label="Internal" />
+                    <ToggleSwitch />
+                  </div>
                 </div>
                 <div className="default-question__item">
                   <span className="label">Gender</span>
+                  <div className="toggle-options">
+                    <Checkbox label="Internal" />
+                    <ToggleSwitch />
+                  </div>
                 </div>
               </>
             )}
@@ -65,12 +88,24 @@ const Card = ({ title, _key, formData, setFormData }: ICard) => {
               <>
                 <div className="default-question__item">
                   <span className="label">Education</span>
+                  <div className="toggle-options">
+                    <Checkbox label="Mandatory" />
+                    <ToggleSwitch />
+                  </div>
                 </div>
                 <div className="default-question__item">
                   <span className="label">Experience</span>
+                  <div className="toggle-options">
+                    <Checkbox label="Mandatory" />
+                    <ToggleSwitch />
+                  </div>
                 </div>
                 <div className="default-question__item">
                   <span className="label">Resume</span>
+                  <div className="toggle-options">
+                    <Checkbox label="Mandatory" />
+                    <ToggleSwitch />
+                  </div>
                 </div>
               </>
             )}
@@ -109,7 +144,7 @@ const Card = ({ title, _key, formData, setFormData }: ICard) => {
           </div>
         )}
 
-        {addQuestion ? (
+        {addQuestion && title !== "Upload cover image" ? (
           <>
             <CustomQuestion
               setQuestionList={setQuestionList}

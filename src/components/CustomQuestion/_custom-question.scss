@@ -4,6 +4,9 @@
 
 .form-group {
   position: relative;
+  &.max-choice {
+    margin-top: 2rem;
+  }
 }
 
 .form-group:not(:last-child) {
@@ -44,7 +47,7 @@
 .question-btns {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
 }
 
 .delete-question-btn {

@@ -4,6 +4,7 @@ import { AiOutlineCaretDown } from "react-icons/ai";
 import { BiListUl } from "react-icons/bi";
 import { ImPlus } from "react-icons/im";
 import { v4 as uuidv4 } from "uuid";
+import Checkbox from "../Checkbox";
 
 interface ICustomQuestion {
   key?: string;
@@ -44,7 +45,7 @@ const CustomQuestion = ({
     },
   ]);
 
-  console.log(customChoices)
+  // console.log(customChoices);
 
   const [choices, setChoices] = useState<any>([customChoices[0].choice]);
 
@@ -59,7 +60,7 @@ const CustomQuestion = ({
 
   return (
     <div className="custom-question">
-      {/* Question types, I made use of divs instead of a select component so the UI will be uniform across all browsers  */}
+      {/* Question types, I made use of divs instead of a select component so the UI will be uniform across all browsers; the native UI for options under select isn't stylable */}
       <div className="form-group">
         <span className="select-label">Type</span>
         <div className="custom-select">
@@ -95,43 +96,95 @@ const CustomQuestion = ({
           onChange={handleQuestionChange}
         />
       </div>
+      {/* For yes / no questions */}
+      {questionType === "Yes/No" && (
+        <Checkbox label="Disqualify candidate if the answer is no" />
+      )}
 
-      {/* For multiple choice questions or dropdowns*/}
+      {/* For multiple choice questions */}
 
       {questionType === "Multiple choice" && (
-        <div className="form-group">
-          <label className="select-label">Choices</label>
-          {customChoices.map(({ id, choice }: any) => (
-            <div key={id} className="add-choice">
-              <BiListUl size={24}/>
-              <input
-                className="custom-input"
-                value={choice}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setCustomChoices((prev: any) => [
-                    ...prev.filter((t: any) => t.id !== id),
-                    { id, choice: e.target.value },
-                  ])
-                }
-              />
-              <button
-                className="add-choice-btn"
-                onClick={() =>
-                  setCustomChoices((prev: any) => [
-                    ...prev,
-                    {
-                      id: uuidv4(),
-                      choice: "",
-                    },
-                  ])
-                }
-              >
-                <ImPlus size={10} />
-              </button>
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="form-group">
+            <label className="select-label">Choices</label>
+            {customChoices.map(({ id, choice }: any) => (
+              <div key={id} className="add-choice">
+                <BiListUl size={24} />
+                <input
+                  className="custom-input"
+                  value={choice}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setCustomChoices((prev: any) => [
+                      ...prev.filter((t: any) => t.id !== id),
+                      { id, choice: e.target.value },
+                    ])
+                  }
+                />
+                <button
+                  className="add-choice-btn"
+                  onClick={() =>
+                    setCustomChoices((prev: any) => [
+                      ...prev,
+                      {
+                        id: uuidv4(),
+                        choice: "",
+                      },
+                    ])
+                  }
+                >
+                  <ImPlus size={10} />
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="form-group max-choice">
+            <label className="select-label">Max choice allowed</label>
+            <input
+              className="custom-input"
+              placeholder="Enter number of choice allowed here"
+            />
+          </div>
+        </>
       )}
+
+      {questionType === "Dropdown" && (
+        <>
+          <div className="form-group">
+            <label className="select-label">Choices</label>
+            {customChoices.map(({ id, choice }: any) => (
+              <div key={id} className="add-choice">
+                <BiListUl size={24} />
+                <input
+                  className="custom-input"
+                  value={choice}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setCustomChoices((prev: any) => [
+                      ...prev.filter((t: any) => t.id !== id),
+                      { id, choice: e.target.value },
+                    ])
+                  }
+                />
+                <button
+                  className="add-choice-btn"
+                  onClick={() =>
+                    setCustomChoices((prev: any) => [
+                      ...prev,
+                      {
+                        id: uuidv4(),
+                        choice: "",
+                      },
+                    ])
+                  }
+                >
+                  <ImPlus size={10} />
+                </button>
+              </div>
+            ))}
+          </div>
+          <Checkbox label={`Enable “Other” option`} />
+        </>
+      )}
+
       <div className="question-btns">
         <button
           className="delete-question-btn"

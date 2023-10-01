@@ -119,6 +119,12 @@ const ApplicationForm = () => {
 
   return (
     <div>
+       <Card
+        title="Upload cover image"
+        _key="coverImage"
+        formData={formData}
+        setFormData={setFormData}
+      />
       <Card
         title="Personal Information"
         _key="personalInformation"
@@ -137,7 +143,6 @@ const ApplicationForm = () => {
         formData={formData}
         setFormData={setFormData}
       />
-      <button onClick={submitData}>Submit</button>
     </div>
   );
 };
