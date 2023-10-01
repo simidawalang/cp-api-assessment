@@ -8,8 +8,9 @@ export const fetchForm = async () => {
       },
     }
   );
-
-  return res;
+  
+  const data = await res.json();
+  return data;
 };
 
 export const submitForm = async (data: any) => {

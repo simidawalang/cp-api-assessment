@@ -1,6 +1,8 @@
 import { ChangeEvent, useState, Dispatch } from "react";
 import { ImCross } from "react-icons/im";
 import { AiOutlineCaretDown } from "react-icons/ai";
+import { BiListUl } from "react-icons/bi";
+import { ImPlus } from "react-icons/im";
 import { v4 as uuidv4 } from "uuid";
 
 interface ICustomQuestion {
@@ -8,8 +10,8 @@ interface ICustomQuestion {
   formData: any;
   setFormData: Dispatch<any>;
   setAddQuestion: Dispatch<any>;
-  questionList: any[];
   setQuestionList: Dispatch<any>;
+  selectedQuestion?: any;
 }
 
 const CustomQuestion = ({
@@ -17,8 +19,8 @@ const CustomQuestion = ({
   formData,
   setFormData,
   setAddQuestion,
-  questionList,
   setQuestionList,
+  selectedQuestion,
 }: ICustomQuestion) => {
   const selectOptions = [
     { id: 1, name: "Paragraph" },
@@ -41,6 +43,8 @@ const CustomQuestion = ({
       choice: "",
     },
   ]);
+
+  console.log(customChoices)
 
   const [choices, setChoices] = useState<any>([customChoices[0].choice]);
 
@@ -91,14 +95,16 @@ const CustomQuestion = ({
           onChange={handleQuestionChange}
         />
       </div>
-      {/* For multiple choice questions or dropdowna*/}
-      {questionType === "Multiple choice" ||
-        (questionType === "Dropdown" && (
-          <div className="form-group">
-            <label className="select-label">Choices</label>
-            {customChoices.map(({ id, choice }: any) => (
+
+      {/* For multiple choice questions or dropdowns*/}
+
+      {questionType === "Multiple choice" && (
+        <div className="form-group">
+          <label className="select-label">Choices</label>
+          {customChoices.map(({ id, choice }: any) => (
+            <div key={id} className="add-choice">
+              <BiListUl size={24}/>
               <input
-                key={id}
                 className="custom-input"
                 value={choice}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -108,27 +114,33 @@ const CustomQuestion = ({
                   ])
                 }
               />
-            ))}
-
-            <button
-              onClick={() =>
-                setCustomChoices((prev: any) => [
-                  ...prev,
-                  {
-                    id: uuidv4(),
-                    choice: "",
-                  },
-                ])
-              }
-            >
-              +
-            </button>
-          </div>
-        ))}
+              <button
+                className="add-choice-btn"
+                onClick={() =>
+                  setCustomChoices((prev: any) => [
+                    ...prev,
+                    {
+                      id: uuidv4(),
+                      choice: "",
+                    },
+                  ])
+                }
+              >
+                <ImPlus size={10} />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
       <div className="question-btns">
         <button
           className="delete-question-btn"
-          onClick={() => setAddQuestion(false)}
+          onClick={() => {
+            setQuestionList((prev: any) =>
+              prev.filter((q: any) => q.id !== selectedQuestion?.id)
+            );
+            setAddQuestion(false);
+          }}
         >
           <ImCross size={24} />
           Delete question
@@ -138,7 +150,15 @@ const CustomQuestion = ({
           onClick={() => {
             setQuestionList((prev: any) => [
               ...prev,
-              { id: uuidv4(), type: questionType, question },
+              {
+                id: uuidv4(),
+                type: questionType,
+                question,
+                choices: ["string"],
+                maxChoice: 0,
+                disqualify: false,
+                other: false,
+              },
             ]);
             setAddQuestion(false);
           }}

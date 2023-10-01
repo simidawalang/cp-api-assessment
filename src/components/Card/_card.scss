@@ -3,6 +3,9 @@
   border-radius: 20px;
   background: #fff;
   box-shadow: 3px 3px 14px 0px rgba(190, 190, 190, 0.3);
+  &:not(:first-child) {
+    margin-top: 3.5rem;
+  }
 }
 
 .card-header {
@@ -17,7 +20,8 @@
   padding: 1.5rem;
 }
 
-.add-question-btn, .delete-question-btn {
+.add-question-btn,
+.delete-question-btn {
   border: 0;
   background: none;
   font-weight: 600;
@@ -27,17 +31,46 @@
   gap: 1rem;
 }
 
+.add-question-btn {
+  margin: 1.5rem 0 1rem;
+}
+
+.default-question__item {
+  position: relative;
+  border-bottom: 1px solid #c4c4c4;
+  padding: 1.5rem 0;
+  & .label {
+    font-size: 20px;
+    font-weight: 600;
+    position: relative;
+    top: -5px;
+  }
+}
+
 .question-item {
-  border-bottom: 1px solid #C4C4C4;
+  border-bottom: 1px solid #c4c4c4;
+  transition: 0.3s;
+  padding: 1rem 0;
 }
 .question-type {
   color: #979797;
   font-size: 14px;
   font-weight: 500;
+  display: block;
   margin-bottom: 1rem;
+}
+
+.edit-btn {
+  cursor: pointer;
 }
 
 .question-text {
   font-size: 20px;
   font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  line-height: 23px;
+  & p {
+    width: 80%;
+  }
 }

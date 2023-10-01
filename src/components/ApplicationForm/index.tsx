@@ -1,26 +1,8 @@
 import { useState, useEffect } from "react";
 import Card from "../Card";
-import { submitForm } from "../../helpers";
+import { fetchForm, submitForm } from "../../helpers";
 
 const ApplicationForm = () => {
-
-  const fetchData = async () => {
-    const res = await fetch(
-      "http://127.0.0.1:4010/api/843.2386679768505/programs/qui/application-form",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/x-yaml",
-        },
-      }
-    );
-    const data = await res.json();
-    console.log(data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
   const [formData, setFormData] = useState<any>({
     data: {
       id: "497f6eca-6276-4993-bfeb-53cbbbba6f08",
@@ -116,6 +98,17 @@ const ApplicationForm = () => {
     },
   });
 
+  const fetchData = async () => {
+    const res = await fetchForm();
+    if (res?.data) {
+      setFormData(res.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const submitData = async () => {
     const res = await submitForm(formData);
 
@@ -129,6 +122,18 @@ const ApplicationForm = () => {
       <Card
         title="Personal Information"
         _key="personalInformation"
+        formData={formData}
+        setFormData={setFormData}
+      />
+      <Card
+        title="Profile"
+        _key="profile"
+        formData={formData}
+        setFormData={setFormData}
+      />
+      <Card
+        title="Additional Questions"
+        _key="customisedQuestions"
         formData={formData}
         setFormData={setFormData}
       />

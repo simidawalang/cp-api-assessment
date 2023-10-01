@@ -1,0 +1,21 @@
+.toggle-switch {
+  width: 80px;
+  height: 30px;
+  position: relative;
+  border: 1px solid #d4d9e4;
+  border-radius: 1rem;
+  padding: 0 2px;
+
+  & .on {
+    background: #087b2f;
+  }
+  & .toggle-indicator {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    border: 1px solid #d4d9e4;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

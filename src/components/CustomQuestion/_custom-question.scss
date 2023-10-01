@@ -1,3 +1,7 @@
+.custom-question {
+  padding: 1rem 0;
+}
+
 .form-group {
   position: relative;
 }
@@ -21,6 +25,18 @@
   height: 60px;
 }
 
+.add-choice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+ 
+  & .add-choice-btn {
+    background: none;
+    border: none;
+    
+  }
+}
+
 .custom-input {
   padding: 0 1rem;
 }
@@ -28,6 +44,7 @@
 .question-btns {
   display: flex;
   justify-content: space-between;
+  margin-top: 1.5rem;
 }
 
 .delete-question-btn {
